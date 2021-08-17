@@ -19,8 +19,8 @@ int servohLimitLow = 40;
 Servo vertical;
 int servov = 90;
 
-int servovLimitHigh = 120;
-int servovLimitLow = 15;
+int servovLimitHigh = 170;
+int servovLimitLow = 40;
 
 
 // LDR pin connections
@@ -37,7 +37,7 @@ void setup() {
   vertical.attach(9);
   // move servos
   horizontal.write(90);
-  vertical.write(40);
+  vertical.write(90);
   delay(3000);
 }
 
@@ -107,13 +107,13 @@ void loop() {
 
   // check if the difference is in the tolerance else change horizontal angle
   if (-1 * tol > dhoriz || dhoriz > tol) {
-    if (avl > avr) {
+    if (avl < avr) {
       servoh = --servoh;
       if (servoh < servohLimitLow) {
         servoh = servohLimitLow;
       }
     }
-    else if (avl < avr) {
+    else if (avl > avr) {
       servoh = ++servoh;
       if (servoh > servohLimitHigh) {
         servoh = servohLimitHigh;
